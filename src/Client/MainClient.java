@@ -1,10 +1,7 @@
 package Client;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.ServerSocket;
+import java.net.*;
 
 public class MainClient {
     public static void main(String[] args) {
@@ -16,7 +13,7 @@ public class MainClient {
             DatagramSocket dSocket = new DatagramSocket();
             //costruzione del pacchetto di dati
             System.out.println("primitiva socket lato client realizzata");
-            DatagramPacket outPacket = new DatagramPacket(messaggio.getBytes(),messaggio.length(), serverAdress, port);
+            DatagramPacket outPacket = new DatagramPacket(messaggio.getBytes(), messaggio.length(), serverAdress, port);
             //invio dei dati
             dSocket.send(outPacket);
             System.out.println("Pacchetto di dati inviato al SERVER");
@@ -26,13 +23,19 @@ public class MainClient {
             dSocket.receive(inPacket);
             System.out.println("ricezione messaggio effettuata" + inPacket);
 
+            dSocket.close();
+            System.out.println("comunicazione chiusa!");
+
+        } catch (UnknownHostException e) {
+            System.err.println("Errore DNS");
+        } catch (SocketException e) {
+            System.err.println("Errore Socket");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println("Errore di I/0");
+
+
         }
 
 
     }
-
-
-
 }

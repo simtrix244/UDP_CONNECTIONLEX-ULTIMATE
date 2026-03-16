@@ -27,11 +27,15 @@ public class MainServer {
 
             System.out.println("messaggio inviato");
 
-        } catch (SocketException e) {
+        } catch (BindException e) {
 
-            throw new RuntimeException(e);
-        } catch (IOException e){
-            throw new RuntimeException(e);
+            System.err.println("Errore porta già in uso");
+        }
+        catch (SocketException e){
+            System.err.println("errore socket");
+        }
+        catch(IOException e){
+            System.err.println("Errore di I/O");
         }
 
 
